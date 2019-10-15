@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#define LENGTH 17000
+#define LENGTH 50000
 
 typedef struct SieveCtx_ {
     unsigned long n;

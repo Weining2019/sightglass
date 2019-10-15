@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#if 0
+__attribute__ ((__optimize__ ("-fno-tree-loop-distribute-patterns")))
 void *memset(void *s, int c, size_t n)
 {
     if (s) {
@@ -20,3 +22,24 @@ void *memmove(void *dest, const void *src, size_t n)
         *p_dst++ = *p_src++;
     return dest;
 }
+
+void *memcpy(void *dest, void *src, size_t n) 
+{ 
+    char *csrc = (char *)src; 
+    char *cdest = (char *)dest; 
+
+    for (size_t i = 0; i < n; i++) 
+        cdest[i] = csrc[i]; 
+    return dest;
+} 
+       
+size_t
+strlen(const char *str)
+{
+    const char *s;
+    for (s = str; *s; ++s)
+        ;
+    return (s - str);
+}
+
+#endif

@@ -6,7 +6,7 @@
 #include <string.h>
 
 #define STR_SIZE 10000
-#define ITERATIONS 10
+#define ITERATIONS 400
 
 typedef struct MemmoveCtx_ {
     char * str;

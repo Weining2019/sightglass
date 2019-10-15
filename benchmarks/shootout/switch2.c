@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 #define ITERATIONS 500
-#define LENGTH 2500
+#define LENGTH 12000
 
 static uint32_t x_buf[LENGTH] = { 0 };
 

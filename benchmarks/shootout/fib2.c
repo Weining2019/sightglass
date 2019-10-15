@@ -12,7 +12,7 @@ fib2_setup(void *global_ctx, void **ctx_p)
     (void) global_ctx;
 
     static Fib2Ctx ctx;
-    ctx.n = 42;
+    ctx.n = 44;
 
     *ctx_p = (void *) &ctx;
 }

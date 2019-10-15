@@ -6,7 +6,7 @@
 #include <string.h>
 
 #define STR_SIZE 500000
-#define ITERATIONS 1000
+#define ITERATIONS 10000
 
 typedef struct StrchrCtx_ {
     char * str;

@@ -14,7 +14,7 @@ ackermann_setup(void *global_ctx, void **ctx_p)
 
     static AckermannCtx ctx;
     ctx.M = 3;
-    ctx.N = 10;
+    ctx.N = 13;
 
     *ctx_p = (void *) &ctx;
 }

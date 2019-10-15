@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define ITERATIONS 10000 * 100
+#define ITERATIONS 10000 * 1000
 
 #define gimli_BLOCKBYTES 48
 #define ROTL32(x, b) (uint32_t)(((x) << (b)) | ((x) >> (32 - (b))))

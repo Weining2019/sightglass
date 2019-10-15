@@ -7,6 +7,7 @@ TIME=/usr/bin/time
 
 BENCH_NAME_MAX_LEN=16
 SHOOTOUT_CASES="ackermann base64 fib2 gimli heapsort memmove minicsv nestedloop2 nestedloop3 nestedloop random seqhash sieve strchr switch2"
+#SHOOTOUT_CASES="ackermann"
 LIFE_CASES="fib pollard snappy"
 
 rm -f $REPORT
@@ -46,9 +47,10 @@ function print_bench_name()
         fi
 }
 
+
 #run benchmarks
 cd $OUT_DIR
-echo -en "\t\t\tnative\tiwasm\twavm\twv-aot\twamtime\tinnative\n" >> $REPORT
+echo -en "\t\t\tnative\twamr\twavm\twv-aot\twamtime\tinnative\n" >> $REPORT
 for t in $SHOOTOUT_CASES $LIFE_CASES
 do
         print_bench_name $t
@@ -58,10 +60,12 @@ do
         echo -en "\t" >> $REPORT
         $TIME -f "real-%e-time" ./${t}_native 2>&1 | grep "real-.*-time" | awk -F '-' '{ORS=""; print $2}' >> $REPORT
 
-        echo "run $t by iwasm ..."
+        echo "run $t by wamr jit ..."
         echo -en "\t" >> $REPORT
         $TIME -f "real-%e-time" iwasm -f app_main ${t}.wasm 2>&1 | grep "real-.*-time" | awk -F '-' '{ORS=""; print $2}' >> $REPORT
 
+if false
+then
         echo "run $t by wavm jit ..."
         echo -en "\t" >> $REPORT
         $TIME -f "real-%e-time" wavm run -f app_main ${t}.wasm 2>&1 | grep "real-.*-time" | awk -F '-' '{ORS=""; print $2}' >> $REPORT
@@ -77,6 +81,7 @@ do
         echo "run $t by innative ..."
         echo -en "\t" >> $REPORT
         $TIME -f "real-%e-time" ./${t}_innative 2>&1 | grep "real-.*-time" | awk -F '-' '{ORS=""; print $2}' >> $REPORT
+fi
 
         echo -en "\n" >> $REPORT
 done

@@ -1,19 +1,19 @@
-			native	iwasm	wavm	wv-aot	wamtime	innative
-ackermann       	0.02	0.11	0.08	0.07	0.09	21.43
-base64          	0.25	0.40	0.31	0.26	0.78	0.31
-fib2            	0.65	1.23	1.12	1.05	1.76	0.83
-gimli           	0.15	0.26	0.24	0.23	0.47	0.22
-heapsort        	0.85	1.16	0.85	0.84	2.30	0.88
-memmove         	0.01	1.39	0.63	0.60	2.36	0.79
-minicsv         	0.33	0.00	0.04	0.01	0.00	0.00
-nestedloop2     	4.57	3.50	3.43	3.44	11.48	0.00
-nestedloop3     	1.66	1.29	1.16	1.13	1.47	0.07
-nestedloop      	4.00	3.65	3.90	3.90	5.03	0.00
-random          	0.53	0.41	0.40	0.40	0.41	0.00
-seqhash         	2.84	13.63	3.96	3.94	20.84	0.26
-sieve           	0.35	0.73	0.45	0.43	1.42	0.48
-strchr          	0.16	0.50	0.29	0.27	0.85	0.30
-switch2         	0.23	1.09	0.32	0.24	1.31	0.34
-fib             	0.02	0.03	0.04	0.03	0.05	0.02
-pollard         	0.01	0.99	0.29	0.04	0.03	0.00
-snappy          	0.02	2.20	0.64	0.09	0.23	0.10
+			native	wamr	wavm	wv-aot	wamtime	innative
+ackermann       	1.34	5.38
+base64          	1.26	1.69
+fib2            	1.56	2.88
+gimli           	1.54	2.26
+heapsort        	1.67	2.23
+memmove         	0.48	0.59
+minicsv         	0.72	2.18
+nestedloop2     	4.43	3.49
+nestedloop3     	1.68	1.39
+nestedloop      	4.20	3.54
+random          	1.03	0.76
+seqhash         	2.78	13.40
+sieve           	1.03	1.72
+strchr          	1.61	4.72
+switch2         	1.04	3.38
+fib             	1.44	1.84
+pollard         	1.20	2.70
+snappy          	1.11	14.86

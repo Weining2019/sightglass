@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ITERATIONS 1000000
+#define ITERATIONS 3000000
 
 #define MINICSV_DELIM ','
 #define MINICSV_QUOTE '"'
@@ -87,6 +87,18 @@ minicsv_parse_line(char *const buf, char **const cols, size_t *const cols_count_
     return pos;
 }
 
+static int
+my_isspace(int c)
+{
+    if (c == '\f'
+        || c == '\n'
+        || c == '\r'
+        || c == '\t'
+        || c == '\v')
+        return 1;
+    return 0;
+}
+
 static void
 minicsv_trim_cols(char **const cols, const size_t cols_count)
 {
@@ -96,11 +108,11 @@ minicsv_trim_cols(char **const cols, const size_t cols_count)
 
     while (i < cols_count) {
         col = cols[i];
-        while (*col != 0 && isspace((int) (unsigned char) *col)) {
+        while (*col != 0 && my_isspace((int) (unsigned char) *col)) {
             cols[i] = ++col;
         }
         col_end = strlen(col);
-        while (col_end > (size_t) 0U && isspace((int) (unsigned char) col[--col_end])) {
+        while (col_end > (size_t) 0U && my_isspace((int) (unsigned char) col[--col_end])) {
             col[col_end] = 0;
         }
         i++;

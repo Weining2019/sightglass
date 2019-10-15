@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #define LENGTH 10000
-#define ITERATIONS 1000
+#define ITERATIONS 2000
 
 #define IM 139968
 #define IA 3877

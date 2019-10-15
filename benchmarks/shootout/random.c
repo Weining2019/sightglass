@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#define LENGTH 40000000
+#define LENGTH 80000000
 
 #define IA 3877
 #define IC 29573
