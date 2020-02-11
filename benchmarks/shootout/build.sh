@@ -1,6 +1,7 @@
 mkdir -p out
 
 export bench=$1
+export aot_target=$2
 
 export cflags_innative="disable_tail_call check_int_division check_memory_access \
                         check_float_trunc check_indirect_call check_stack_overflow \
@@ -23,6 +24,10 @@ clang-8 -O3 --target=wasm32 -nostdlib \
         -o out/${bench}.wasm \
         -Wl,--export=app_main \
         ${bench}.c main/main_${bench}.c main/my_libc.c
+
+wamrc --target=${aot_target} --format=aot -o out/${bench}.wamr-aot out/${bench}.wasm
+wamrc --target=${aot_target} --format=object -o out/${bench}.o out/${bench}.wasm
+wamrc --target=${aot_target} --format=llvmir-opt -o out/${bench}.ir out/${bench}.wasm
 
 wavm disassemble out/${bench}.wasm out/${bench}.wast
 wavm compile out/${bench}.wasm out/${bench}.wavm-aot

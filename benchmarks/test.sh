@@ -9,9 +9,13 @@ BENCH_NAME_MAX_LEN=16
 SHOOTOUT_CASES="ackermann base64 fib2 gimli heapsort memmove minicsv nestedloop2 nestedloop3 nestedloop random seqhash sieve strchr switch2"
 #SHOOTOUT_CASES="ackermann"
 LIFE_CASES="fib pollard snappy"
+AOT_TARGET="i386"
 
 rm -f $REPORT
 touch $REPORT
+
+if true
+then
 rm -rf $OUT_DIR
 mkdir -p $OUT_DIR
 
@@ -21,7 +25,7 @@ cd $CUR_DIR/shootout
 for t in $SHOOTOUT_CASES
 do
         echo "build $t ..."
-        ./build.sh $t
+        ./build.sh $t $AOT_TARGET
 done
 
 cp out/* $OUT_DIR
@@ -31,9 +35,10 @@ cd $CUR_DIR/life
 for t in $LIFE_CASES
 do
         echo "build $t ..."
-        ./build.sh $t
+        ./build.sh $t $AOT_TARGET
 done
 cp * $OUT_DIR
+fi
 
 function print_bench_name()
 {
@@ -50,7 +55,7 @@ function print_bench_name()
 
 #run benchmarks
 cd $OUT_DIR
-echo -en "\t\t\tnative\twamr\twavm\twv-aot\twamtime\tinnative\n" >> $REPORT
+echo -en "\t\t\tnative\twamr-j\twamr\twavm\twv-aot\twamtime\tinnative\n" >> $REPORT
 for t in $SHOOTOUT_CASES $LIFE_CASES
 do
         print_bench_name $t
@@ -58,11 +63,17 @@ do
         echo "run $t by native ..."
         #remove the extra newline character output by 'time'
         echo -en "\t" >> $REPORT
-        $TIME -f "real-%e-time" ./${t}_native 2>&1 | grep "real-.*-time" | awk -F '-' '{ORS=""; print $2}' >> $REPORT
+        #$TIME -f "real-%e-time" ./${t}_native 2>&1 | grep "real-.*-time" | awk -F '-' '{ORS=""; print $2}' >> $REPORT
+        $TIME -f "real-%e-time" xxx 2>&1 | grep "real-.*-time" | awk -F '-' '{ORS=""; print $2}' >> $REPORT
 
         echo "run $t by wamr jit ..."
         echo -en "\t" >> $REPORT
-        $TIME -f "real-%e-time" iwasm -f app_main ${t}.wasm 2>&1 | grep "real-.*-time" | awk -F '-' '{ORS=""; print $2}' >> $REPORT
+        #$TIME -f "real-%e-time" iwasm -f app_main ${t}.wasm 2>&1 | grep "real-.*-time" | awk -F '-' '{ORS=""; print $2}' >> $REPORT
+        $TIME -f "real-%e-time" xxx -f app_main ${t}.wasm 2>&1 | grep "real-.*-time" | awk -F '-' '{ORS=""; print $2}' >> $REPORT
+
+        echo "run $t by wamr aot ..."
+        echo -en "\t" >> $REPORT
+        $TIME -f "real-%e-time" iwasm -f app_main ${t}.wamr-aot 2>&1 | grep "real-.*-time" | awk -F '-' '{ORS=""; print $2}' >> $REPORT
 
 if false
 then
